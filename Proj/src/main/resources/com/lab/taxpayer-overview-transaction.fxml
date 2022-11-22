@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="510.0" prefWidth="680.0" style="-fx-background-color: #ffe930;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.lab.controllers.TTransactionOverviewController">
+   <children>
+      <TableView fx:id="table" layoutX="30.0" layoutY="290.0" prefHeight="200.0" prefWidth="625.0">
+        <columns>
+          <TableColumn fx:id="id" prefWidth="69.60003662109375" text="ID" />
+          <TableColumn fx:id="type" prefWidth="125.5999755859375" text="Tax type" />
+            <TableColumn fx:id="amount" prefWidth="120.0" text="Tax amount" />
+            <TableColumn fx:id="status" prefWidth="144.0" text="Status" />
+            <TableColumn fx:id="date" minWidth="4.800048828125" prefWidth="161.60001220703123" text="Start date" />
+        </columns>
+      </TableView>
+      <HBox layoutX="30.0" layoutY="210.0" prefHeight="27.0" prefWidth="622.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#makePayment" prefHeight="26.0" prefWidth="287.0" style="-fx-background-color: #fcba03;" text="Make payment">
+               <font>
+                  <Font name="Impact" size="13.0" />
+               </font>
+            </Button>
+            <Label prefHeight="27.0" prefWidth="85.0" />
+            <RadioButton fx:id="rb1" mnemonicParsing="false" onAction="#onlyUnpaid" prefHeight="27.0" prefWidth="179.0" text="Show only unpaid">
+               <font>
+                  <Font name="Impact" size="13.0" />
+               </font>
+            </RadioButton>
+         </children>
+      </HBox>
+      <Label fx:id="error" layoutX="29.0" layoutY="268.0" prefHeight="18.0" prefWidth="610.0" textFill="RED">
+         <font>
+            <Font name="Impact" size="12.0" />
+         </font>
+      </Label>
+      <TextField fx:id="idField" layoutX="30.0" layoutY="242.0" prefHeight="26.0" prefWidth="116.0" promptText="Transaction id" style="-fx-background-color: transparent; -fx-border-width: 0 0 1 0; -fx-border-color: #000000;">
+         <font>
+            <Font name="Lucida Console" size="12.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="cardNumField" layoutX="147.0" layoutY="242.0" prefHeight="26.0" prefWidth="170.0" promptText="Card numbers" style="-fx-background-color: transparent; -fx-border-width: 0 0 1 0; -fx-border-color: #000000;">
+         <font>
+            <Font name="Lucida Console" size="12.0" />
+         </font>
+      </TextField>
+      <Label layoutX="30.0" layoutY="30.0" prefHeight="50.0" prefWidth="383.0" text="Taxpayer Workshop">
+         <font>
+            <Font name="Impact" size="33.0" />
+         </font>
+      </Label>
+      <TextArea fx:id="textAreaForReport" layoutX="327.0" layoutY="103.0" prefHeight="71.0" prefWidth="321.0" promptText="Field for report">
+         <font>
+            <Font name="Lucida Console" size="13.0" />
+         </font>
+      </TextArea>
+      <Button layoutX="29.0" layoutY="103.0" mnemonicParsing="false" onAction="#showReport" prefHeight="26.0" prefWidth="287.0" style="-fx-background-color: #fcba03;" text="Show year report">
+         <font>
+            <Font name="Impact" size="13.0" />
+         </font>
+      </Button>
+      <TextField fx:id="yearField" layoutX="29.0" layoutY="139.0" prefHeight="26.0" prefWidth="287.0" promptText="Year" style="-fx-background-color: transparent; -fx-border-width: 0 0 1 0; -fx-border-color: #000000;">
+         <font>
+            <Font name="Lucida Console" size="12.0" />
+         </font>
+      </TextField>
+      <Label fx:id="errorYear" layoutX="29.0" layoutY="174.0" prefHeight="18.0" prefWidth="287.0" textFill="RED">
+         <font>
+            <Font name="Impact" size="12.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="510.0" prefWidth="680.0" style="-fx-background-color: #ffe930;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.lab.controllers.ATaxpayerOverviewController">
+   <children>
+      <TableView fx:id="table" layoutX="30.0" layoutY="290.0" prefHeight="200.0" prefWidth="625.0">
+        <columns>
+          <TableColumn fx:id="id" prefWidth="29.600006103515625" text="ID" />
+          <TableColumn fx:id="fname" prefWidth="75.20001220703125" text="Firstname" />
+            <TableColumn fx:id="lname" prefWidth="85.60003662109375" text="Lastname" />
+            <TableColumn fx:id="login" prefWidth="83.2000732421875" text="Login" />
+            <TableColumn fx:id="password" prefWidth="87.99993896484375" text="Password" />
+            <TableColumn fx:id="date" text="Reg. date" />
+            <TableColumn fx:id="city" prefWidth="72.79998779296875" text="City" />
+            <TableColumn fx:id="email" prefWidth="112.79998779296875" text="EmailAddress" />
+        </columns>
+      </TableView>
+      <Label layoutX="30.0" layoutY="30.0" prefHeight="50.0" prefWidth="383.0" text="Taxpayers Overview">
+         <font>
+            <Font name="Impact" size="33.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
