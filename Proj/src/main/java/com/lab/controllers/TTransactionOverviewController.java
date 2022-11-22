@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -92,7 +93,18 @@ public class TTransactionOverviewController {
                     && t.getDate().contains(""+year)).toList();
             AtomicInteger sumUnpaid = new AtomicInteger();
             forSum.stream().forEach(t -> sumUnpaid.addAndGet(t.getTaxAmount()));
-            textAreaForReport.setText("Year -> " + year + "\nSum of paid transactions -> "+sumPaid+ "\nSum of unpaid transactions -> "+ sumUnpaid);
+
+            List<Transaction> transactionList = data.stream().filter(t ->
+                    t.getDate().contains(""+year)).toList();
+            List<String> taxTypes = new ArrayList<>();
+            for (Transaction transaction : transactionList) {
+                if (!taxTypes.contains(transaction.getTaxType())) {
+                    taxTypes.add(transaction.getTaxType());
+                }
+            }
+            String types = taxTypes.toString();
+            textAreaForReport.setText("Year -> " + year + "\nSum of paid transactions -> "+
+                    sumPaid+ "\nSum of unpaid transactions -> "+ sumUnpaid +"\nAll types of taxes:\n" + types);
         } catch (NumberFormatException e) {
             errorYear.setText("Wrong input!");
             e.printStackTrace();

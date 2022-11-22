@@ -48,7 +48,15 @@ public class AdminInterfaceController {
 
     @FXML
     public void transactionWorkshop(ActionEvent event) {
-
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("admin-workshop-page.fxml"));
+        borderPane.getChildren().remove(borderPane.getCenter());
+        try {
+            borderPane.setCenter(fxmlLoader.load());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        AdminWorkshopController controller = fxmlLoader.getController();
+        controller.setFields();
     }
 
     @FXML

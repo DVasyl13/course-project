@@ -9,11 +9,12 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
-
 
 <AnchorPane prefHeight="510.0" prefWidth="680.0" style="-fx-background-color: #ffe930;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.lab.controllers.TTransactionOverviewController">
    <children>
+      <Pane layoutX="20.0" layoutY="22.0" prefHeight="65.0" prefWidth="640.0" style="-fx-background-color: #fcba03; -fx-background-radius: 10 30 30 10;" />
       <TableView fx:id="table" layoutX="30.0" layoutY="290.0" prefHeight="200.0" prefWidth="625.0">
         <columns>
           <TableColumn fx:id="id" prefWidth="69.60003662109375" text="ID" />
@@ -53,12 +54,12 @@
             <Font name="Lucida Console" size="12.0" />
          </font>
       </TextField>
-      <Label layoutX="30.0" layoutY="30.0" prefHeight="50.0" prefWidth="383.0" text="Taxpayer Workshop">
+      <Label layoutX="30.0" layoutY="30.0" prefHeight="45.0" prefWidth="383.0" text="Taxpayer Workshop">
          <font>
             <Font name="Impact" size="33.0" />
          </font>
       </Label>
-      <TextArea fx:id="textAreaForReport" layoutX="327.0" layoutY="103.0" prefHeight="71.0" prefWidth="321.0" promptText="Field for report">
+      <TextArea fx:id="textAreaForReport" layoutX="327.0" layoutY="103.0" prefHeight="92.0" prefWidth="322.0" promptText="Field for report">
          <font>
             <Font name="Lucida Console" size="13.0" />
          </font>

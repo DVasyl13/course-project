@@ -29,6 +29,24 @@ public class DBUtil {
         return true;
     }
 
+    public boolean checkIfLoginPasswordIsValid(String type,String login, String password) {
+        String sql = "SELECT * FROM [dbo].["+type+"] WHERE Login='"+login+"' AND Password='"+password +"'";
+        try(Connection connection = ConnectionDB.getConnection();
+            Statement statement = connection.createStatement()) {
+
+            ResultSet resultSet = statement.executeQuery(sql);
+            if (resultSet.next()) {
+                return false;
+            }
+            else {
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     public User getUser(String login, String password, String type) {
         String sql = "SELECT * FROM [dbo].[" + type + "] WHERE Login = '"+ login+"' AND Password = '"+ password+"'";
         try(Connection connection = ConnectionDB.getConnection();
@@ -136,6 +154,47 @@ public class DBUtil {
         return null;
     }
 
+    public ObservableList<Job> getAllJobs() {
+        String sql = "SELECT * FROM [dbo].[Jobs]";
+
+        try(Connection connection = ConnectionDB.getConnection();
+            Statement statement = connection.createStatement()) {
+
+            ResultSet rs = statement.executeQuery(sql);
+            ObservableList<Job> list = FXCollections.observableArrayList();
+
+            while (rs.next()) {
+                list.add(new Job(rs.getInt("TaxpayerID"),
+                        rs.getString("JobName"), rs.getInt("MonthSalary")));
+            }
+            return list;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public ObservableList<Transaction> getAllTransactions() {
+        String sql = "SELECT * FROM [dbo].[Transactions]";
+
+        try(Connection connection = ConnectionDB.getConnection();
+            Statement statement = connection.createStatement()) {
+
+            ResultSet rs = statement.executeQuery(sql);
+            ObservableList<Transaction> list = FXCollections.observableArrayList();
+
+            while (rs.next()) {
+                list.add(new Transaction(rs.getInt("TransactionID"), rs.getInt("TaxpayerID")
+                        , rs.getString("TaxType"), rs.getInt("TaxAmount"), rs.getString("Status")
+                        , rs.getDate("StartDate").toString()));
+            }
+            return list;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public boolean updateTaxpayerInfo(int id, String fname, String lname, String login, String password, String email, String city) {
         String sql = "UPDATE [dbo].[Taxpayer] SET FirstName=? , LastName=?," +
                     " Login=? , Password=?, City=?, EmailAddress=? WHERE TaxpayerID="+id;
@@ -221,6 +280,23 @@ public class DBUtil {
         return false;
     }
 
+    public boolean insertTransaction(int taxpayerId, String taxType, int amount, String date) {
+        String sql = "INSERT INTO [dbo].[Transactions] (TaxpayerID, TaxType, TaxAmount, StartDate) Values (? ,? , ? ,?)";
+
+        try (Connection connection = ConnectionDB.getConnection();
+              PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, taxpayerId);
+            statement.setString(2, taxType);
+            statement.setInt(3, amount);
+            statement.setString(4, date);
+
+            return 1 == statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     public ObservableList<Job> getJobById(int id) {
         String sql = "SELECT * FROM [dbo].[Jobs] WHERE TaxpayerID="+id;
         try(Connection connection = ConnectionDB.getConnection();
@@ -293,9 +369,38 @@ public class DBUtil {
         }
         return false;
     }
+    public boolean checkIfTaxpayerExists( int id) {
+        String sql = "SELECT * FROM [dbo].[Taxpayer] WHERE TaxpayerID=" +id;
+        try(Connection connection = ConnectionDB.getConnection();
+            Statement statement = connection.createStatement()) {
+            ResultSet rs = statement.executeQuery(sql);
+            if (rs.next()) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 
+    public boolean checkIfHasJob( int id) {
+        String sql = "SELECT * FROM [dbo].[Jobs] WHERE TaxpayerID=" +id;
+        try(Connection connection = ConnectionDB.getConnection();
+            Statement statement = connection.createStatement()) {
 
-
+            ResultSet rs = statement.executeQuery(sql);
+            if (rs.next()) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
     public static void printSQLException(SQLException ex) {
         for (Throwable e: ex) {
             if (e instanceof SQLException) {

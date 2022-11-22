@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
@@ -64,11 +65,16 @@ public class SignInController implements Initializable {
         String login = loginTextField.getText();
         String password = passwordTextField.getText();
 
-        System.out.println(personType.getValue());
         DBUtil jdbc = new DBUtil();
+        if (!jdbc.checkIfLoginPasswordIsValid(status, login, password)){
+            error.setText("You can not use that login/password!");
+            return;
+        }
         if(jdbc.insertNewUser(firstName, lastName, login, password, status)) {
             try {
+                Parent root = null;
                 FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(status.toLowerCase() + "-interface.fxml"));
+                root = fxmlLoader.load();
                 if (status.equals("Admin")) {
                     AdminInterfaceController controller = fxmlLoader.getController();
                     controller.setUserInformation(jdbc.getUser(login, password, status));
@@ -77,7 +83,7 @@ public class SignInController implements Initializable {
                     controller.setUserInformation(jdbc.getUser(login, password, status));
                 }
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                Scene scene = new Scene(fxmlLoader.load());
+                Scene scene = new Scene(root);
                 stage.setScene(scene);
                 stage.show();
             } catch (IOException e) {
